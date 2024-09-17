@@ -15,6 +15,21 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     @Modifying
     @Query(nativeQuery = true,
     value = "delete from products " +
-            "where creator_id = ?1")
+            "where creator_id = ?1; " +
+            "delete  from likes " +
+            "where user_id = ?1; "
+    )
     void deleteUserAssociations(Integer userId);
+
+    @Modifying
+    @Query(nativeQuery = true,
+    value = "insert into likes(user_id, product_id) " +
+            "values (?1, ?2) on conflict(user_id, product_id) do nothing")
+    void createLike(Integer userId, Integer productId);
+
+    @Modifying
+    @Query(nativeQuery = true,
+            value = "delete from likes where " +
+                    "user_id = ?1 and product_id = ?2")
+    void deleteLike(Integer userId, Integer productId);
 }

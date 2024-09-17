@@ -29,4 +29,6 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
                                             List<Integer> tagsList,
                                             Pageable pageable);
 
+    @Query("select p from UserEntity u join u.likes p where u.id = :userId")
+    Page<ProductEntity> findProductsUserLiked(Integer userId, Pageable pageable);
 }
