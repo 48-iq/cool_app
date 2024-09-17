@@ -1,0 +1,26 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: cool-app
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show:
+      sql: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cool_app
+    username: postgres
+    password: 1234
+app:
+  jwt:
+    duration:
+      days: 2
+    secret: 1234
+  images:
+    default:
+      filepath: /images
+  admin:
+    password: 12345678
+
+
